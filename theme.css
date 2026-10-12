@@ -1,0 +1,183 @@
+:root {
+  --bg: #071312;
+  --bg-2: #0f1d1d;
+  --panel: rgba(10, 18, 19, 0.88);
+  --panel-strong: rgba(18, 27, 28, 0.96);
+  --text: #eae4d7;
+  --muted: #aca596;
+  --line: rgba(255, 255, 255, 0.1);
+  --gold: #d8b66b;
+  --gold-text: #d3a353;
+  --gold-deep: #c68b44;
+  --green: #7ec1a8;
+  --green-deep: #4b8d72;
+  --shadow: rgba(0, 0, 0, 0.35);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.atmosphere {
+  z-index: 0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(21, 92, 79, 0.42), transparent 28%),
+    radial-gradient(circle at 85% 25%, rgba(230, 159, 72, 0.28), transparent 22%),
+    radial-gradient(circle at 50% 100%, rgba(87, 39, 7, 0.38), transparent 30%),
+    var(--bg);
+}
+
+.atmosphere::before {
+  background: conic-gradient(from 120deg, rgba(27, 167, 126, 0.14), transparent 25%, rgba(217, 182, 107, 0.12), transparent 48%, rgba(118, 78, 186, 0.12), transparent);
+  filter: blur(55px);
+  animation: theme-aurora 18s linear infinite;
+}
+
+.hero {
+  isolation: isolate;
+  background: none;
+}
+
+.hero::before {
+  position: absolute;
+  z-index: -1;
+  inset-block: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(216, 182, 107, .18);
+  border-radius: clamp(1rem, 2.4vw, 2rem);
+  background:
+    linear-gradient(rgba(6, 16, 15, .48), rgba(6, 16, 15, .48)),
+    url("./sbs/hero%20layer.jpeg"),
+    radial-gradient(ellipse at 20% 8%, rgba(216, 182, 107, .18), transparent 44%),
+    radial-gradient(ellipse at 84% 92%, rgba(157, 103, 41, .2), transparent 47%),
+    radial-gradient(ellipse at 56% 52%, rgba(18, 83, 70, .34), transparent 66%),
+    linear-gradient(118deg, #06100f 0%, #0b1c19 48%, #1b150c 100%);
+  background-size: 100% 100%, cover, 155% 155%, 155% 155%, 155% 155%, 155% 155%;
+  background-position: center, center, 0% 50%, 0% 50%, 0% 50%, 0% 50%;
+  background-repeat: no-repeat;
+  filter: brightness(.7);
+  opacity: .4;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, .32),
+    inset 0 1px 0 rgba(255, 250, 240, .13),
+    inset 0 -1px 0 rgba(216, 182, 107, .1);
+  content: "";
+  animation: hero-panel-breathe 16s ease-in-out infinite alternate;
+}
+
+.hero::after {
+  position: absolute;
+  z-index: -1;
+  inset: 1px;
+  border: 1px solid rgba(255, 250, 240, .065);
+  border-radius: calc(clamp(1rem, 2.4vw, 2rem) - 1px);
+  background:
+    linear-gradient(112deg, transparent 12%, rgba(255, 250, 240, .1) 38%, transparent 58%),
+    radial-gradient(ellipse at 52% -18%, rgba(255, 231, 174, .14), transparent 44%);
+  background-size: 260% 100%, 100% 100%;
+  content: "";
+  opacity: .72;
+  pointer-events: none;
+  animation: hero-panel-reflection 14s ease-in-out infinite alternate;
+}
+
+html.is-scrolling .hero::before,
+html.is-scrolling .hero::after,
+html.is-scrolling .hero-visual img,
+html.is-scrolling .roadmap-build .roadmap-phase-badge,
+html.is-scrolling .roadmap-rewards .roadmap-phase-badge,
+html.is-scrolling .roadmap-beyond .roadmap-phase-badge {
+  animation-play-state: paused;
+}
+
+@keyframes hero-panel-breathe {
+  from {
+    background-position: center, center, 0% 50%, 0% 50%, 0% 50%, 0% 50%;
+  }
+
+  to {
+    background-position: center, center, 100% 50%, 100% 50%, 100% 50%, 100% 50%;
+  }
+}
+
+@keyframes hero-panel-reflection {
+  from {
+    background-position: 0% 50%, 50% 0%;
+    opacity: .52;
+  }
+
+  to {
+    background-position: 100% 50%, 50% 0%;
+    opacity: .9;
+  }
+}
+
+@media (max-width: 760px) {
+  .hero::before {
+    border-radius: 1rem;
+    background:
+      linear-gradient(rgba(6, 16, 15, .52), rgba(6, 16, 15, .52)),
+      url("./sbs/hero%20layer.jpeg"),
+      radial-gradient(ellipse at 20% 8%, rgba(216, 182, 107, .14), transparent 46%),
+      radial-gradient(ellipse at 84% 92%, rgba(157, 103, 41, .15), transparent 48%),
+      radial-gradient(ellipse at 56% 52%, rgba(18, 83, 70, .28), transparent 68%),
+      linear-gradient(118deg, #06100f 0%, #0b1c19 48%, #1b150c 100%);
+    background-size: 100% 100%, cover, 155% 155%, 155% 155%, 155% 155%, 155% 155%;
+    background-position: center, center, 0% 50%, 0% 50%, 0% 50%, 0% 50%;
+    background-repeat: no-repeat;
+    box-shadow:
+      0 20px 48px rgba(0, 0, 0, .28),
+      inset 0 1px 0 rgba(255, 250, 240, .1);
+  }
+
+  .hero::after {
+    border-radius: calc(1rem - 1px);
+    opacity: .48;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .hero::after {
+    animation: none;
+  }
+}
+
+.section-kicker,
+.eyebrow,
+.card-label {
+  color: var(--gold-text);
+}
+
+.section,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.button.primary {
+  box-shadow: 0 18px 35px rgba(166, 109, 38, 0.28);
+}
+
+.button.secondary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(211, 163, 83, 0.3);
+  color: var(--text);
+}
+
+.team-card,
+.faq-item,
+.roadmap-item {
+  background: rgba(12, 18, 20, 0.78);
+  border: 1px solid var(--line);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes theme-aurora {
+  to {
+    transform: rotate(360deg) scale(1.08);
+  }
+}
